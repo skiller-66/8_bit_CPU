@@ -1,0 +1,735 @@
+$date
+	Thu Sep 17 19:33:29 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module register_file_tb $end
+$var wire 8 ! rdata2 [7:0] $end
+$var wire 8 " rdata1 [7:0] $end
+$var reg 1 # clk $end
+$var reg 2 $ raddr1 [1:0] $end
+$var reg 2 % raddr2 [1:0] $end
+$var reg 1 & reset $end
+$var reg 2 ' waddr [1:0] $end
+$var reg 8 ( wdata [7:0] $end
+$var reg 1 ) we $end
+$scope module uut $end
+$var wire 1 # clk $end
+$var wire 2 * raddr1 [1:0] $end
+$var wire 2 + raddr2 [1:0] $end
+$var wire 8 , rdata1 [7:0] $end
+$var wire 8 - rdata2 [7:0] $end
+$var wire 1 & reset $end
+$var wire 2 . waddr [1:0] $end
+$var wire 8 / wdata [7:0] $end
+$var wire 1 ) we $end
+$var wire 4 0 en [3:0] $end
+$scope begin regs[0] $end
+$var parameter 2 1 i $end
+$scope module r $end
+$var wire 1 # clk $end
+$var wire 8 2 d [7:0] $end
+$var wire 1 3 en $end
+$var wire 1 & reset $end
+$var wire 8 4 q [7:0] $end
+$var parameter 32 5 WIDTH $end
+$scope begin bit[0] $end
+$var parameter 2 6 i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 7 d $end
+$var wire 1 & reset $end
+$var reg 1 8 q $end
+$upscope $end
+$upscope $end
+$scope begin bit[1] $end
+$var parameter 2 9 i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 : d $end
+$var wire 1 & reset $end
+$var reg 1 ; q $end
+$upscope $end
+$upscope $end
+$scope begin bit[2] $end
+$var parameter 3 < i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 = d $end
+$var wire 1 & reset $end
+$var reg 1 > q $end
+$upscope $end
+$upscope $end
+$scope begin bit[3] $end
+$var parameter 3 ? i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 @ d $end
+$var wire 1 & reset $end
+$var reg 1 A q $end
+$upscope $end
+$upscope $end
+$scope begin bit[4] $end
+$var parameter 4 B i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 C d $end
+$var wire 1 & reset $end
+$var reg 1 D q $end
+$upscope $end
+$upscope $end
+$scope begin bit[5] $end
+$var parameter 4 E i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 F d $end
+$var wire 1 & reset $end
+$var reg 1 G q $end
+$upscope $end
+$upscope $end
+$scope begin bit[6] $end
+$var parameter 4 H i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 I d $end
+$var wire 1 & reset $end
+$var reg 1 J q $end
+$upscope $end
+$upscope $end
+$scope begin bit[7] $end
+$var parameter 4 K i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 L d $end
+$var wire 1 & reset $end
+$var reg 1 M q $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope begin regs[1] $end
+$var parameter 2 N i $end
+$scope module r $end
+$var wire 1 # clk $end
+$var wire 8 O d [7:0] $end
+$var wire 1 P en $end
+$var wire 1 & reset $end
+$var wire 8 Q q [7:0] $end
+$var parameter 32 R WIDTH $end
+$scope begin bit[0] $end
+$var parameter 2 S i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 T d $end
+$var wire 1 & reset $end
+$var reg 1 U q $end
+$upscope $end
+$upscope $end
+$scope begin bit[1] $end
+$var parameter 2 V i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 W d $end
+$var wire 1 & reset $end
+$var reg 1 X q $end
+$upscope $end
+$upscope $end
+$scope begin bit[2] $end
+$var parameter 3 Y i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 Z d $end
+$var wire 1 & reset $end
+$var reg 1 [ q $end
+$upscope $end
+$upscope $end
+$scope begin bit[3] $end
+$var parameter 3 \ i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 ] d $end
+$var wire 1 & reset $end
+$var reg 1 ^ q $end
+$upscope $end
+$upscope $end
+$scope begin bit[4] $end
+$var parameter 4 _ i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 ` d $end
+$var wire 1 & reset $end
+$var reg 1 a q $end
+$upscope $end
+$upscope $end
+$scope begin bit[5] $end
+$var parameter 4 b i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 c d $end
+$var wire 1 & reset $end
+$var reg 1 d q $end
+$upscope $end
+$upscope $end
+$scope begin bit[6] $end
+$var parameter 4 e i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 f d $end
+$var wire 1 & reset $end
+$var reg 1 g q $end
+$upscope $end
+$upscope $end
+$scope begin bit[7] $end
+$var parameter 4 h i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 i d $end
+$var wire 1 & reset $end
+$var reg 1 j q $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope begin regs[2] $end
+$var parameter 3 k i $end
+$scope module r $end
+$var wire 1 # clk $end
+$var wire 8 l d [7:0] $end
+$var wire 1 m en $end
+$var wire 1 & reset $end
+$var wire 8 n q [7:0] $end
+$var parameter 32 o WIDTH $end
+$scope begin bit[0] $end
+$var parameter 2 p i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 q d $end
+$var wire 1 & reset $end
+$var reg 1 r q $end
+$upscope $end
+$upscope $end
+$scope begin bit[1] $end
+$var parameter 2 s i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 t d $end
+$var wire 1 & reset $end
+$var reg 1 u q $end
+$upscope $end
+$upscope $end
+$scope begin bit[2] $end
+$var parameter 3 v i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 w d $end
+$var wire 1 & reset $end
+$var reg 1 x q $end
+$upscope $end
+$upscope $end
+$scope begin bit[3] $end
+$var parameter 3 y i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 z d $end
+$var wire 1 & reset $end
+$var reg 1 { q $end
+$upscope $end
+$upscope $end
+$scope begin bit[4] $end
+$var parameter 4 | i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 } d $end
+$var wire 1 & reset $end
+$var reg 1 ~ q $end
+$upscope $end
+$upscope $end
+$scope begin bit[5] $end
+$var parameter 4 !" i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 "" d $end
+$var wire 1 & reset $end
+$var reg 1 #" q $end
+$upscope $end
+$upscope $end
+$scope begin bit[6] $end
+$var parameter 4 $" i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 %" d $end
+$var wire 1 & reset $end
+$var reg 1 &" q $end
+$upscope $end
+$upscope $end
+$scope begin bit[7] $end
+$var parameter 4 '" i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 (" d $end
+$var wire 1 & reset $end
+$var reg 1 )" q $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope begin regs[3] $end
+$var parameter 3 *" i $end
+$scope module r $end
+$var wire 1 # clk $end
+$var wire 8 +" d [7:0] $end
+$var wire 1 ," en $end
+$var wire 1 & reset $end
+$var wire 8 -" q [7:0] $end
+$var parameter 32 ." WIDTH $end
+$scope begin bit[0] $end
+$var parameter 2 /" i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 0" d $end
+$var wire 1 & reset $end
+$var reg 1 1" q $end
+$upscope $end
+$upscope $end
+$scope begin bit[1] $end
+$var parameter 2 2" i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 3" d $end
+$var wire 1 & reset $end
+$var reg 1 4" q $end
+$upscope $end
+$upscope $end
+$scope begin bit[2] $end
+$var parameter 3 5" i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 6" d $end
+$var wire 1 & reset $end
+$var reg 1 7" q $end
+$upscope $end
+$upscope $end
+$scope begin bit[3] $end
+$var parameter 3 8" i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 9" d $end
+$var wire 1 & reset $end
+$var reg 1 :" q $end
+$upscope $end
+$upscope $end
+$scope begin bit[4] $end
+$var parameter 4 ;" i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 <" d $end
+$var wire 1 & reset $end
+$var reg 1 =" q $end
+$upscope $end
+$upscope $end
+$scope begin bit[5] $end
+$var parameter 4 >" i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 ?" d $end
+$var wire 1 & reset $end
+$var reg 1 @" q $end
+$upscope $end
+$upscope $end
+$scope begin bit[6] $end
+$var parameter 4 A" i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 B" d $end
+$var wire 1 & reset $end
+$var reg 1 C" q $end
+$upscope $end
+$upscope $end
+$scope begin bit[7] $end
+$var parameter 4 D" i $end
+$scope module u_dff $end
+$var wire 1 # clk $end
+$var wire 1 E" d $end
+$var wire 1 & reset $end
+$var reg 1 F" q $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b111 D"
+b110 A"
+b101 >"
+b100 ;"
+b11 8"
+b10 5"
+b1 2"
+b0 /"
+b1000 ."
+b11 *"
+b111 '"
+b110 $"
+b101 !"
+b100 |
+b11 y
+b10 v
+b1 s
+b0 p
+b1000 o
+b10 k
+b111 h
+b110 e
+b101 b
+b100 _
+b11 \
+b10 Y
+b1 V
+b0 S
+b1000 R
+b1 N
+b111 K
+b110 H
+b101 E
+b100 B
+b11 ?
+b10 <
+b1 9
+b0 6
+b1000 5
+b0 1
+$end
+#0
+$dumpvars
+0F"
+0E"
+0C"
+0B"
+0@"
+0?"
+0="
+0<"
+0:"
+09"
+07"
+06"
+04"
+03"
+01"
+00"
+b0 -"
+0,"
+b0 +"
+0)"
+0("
+0&"
+0%"
+0#"
+0""
+0~
+0}
+0{
+0z
+0x
+0w
+0u
+0t
+0r
+0q
+b0 n
+0m
+b0 l
+0j
+0i
+0g
+0f
+0d
+0c
+0a
+0`
+0^
+0]
+0[
+0Z
+0X
+0W
+0U
+0T
+b0 Q
+0P
+b0 O
+0M
+0L
+0J
+0I
+0G
+0F
+0D
+0C
+0A
+0@
+0>
+0=
+0;
+0:
+08
+07
+b0 4
+03
+b0 2
+b0 0
+b0 /
+b0 .
+b0 -
+b0 ,
+b1 +
+b0 *
+0)
+b0 (
+b0 '
+1&
+b1 %
+b0 $
+0#
+b0 "
+b0 !
+$end
+#5000
+1#
+#10000
+1:
+1@
+13
+b1 0
+0#
+b1010 (
+b1010 /
+b1010 2
+b1010 O
+b1010 l
+b1010 +"
+1)
+0&
+#15000
+b1010 4
+b1010 "
+b1010 ,
+1;
+1A
+1#
+#20000
+1Z
+1`
+1P
+03
+b10 0
+1:
+0=
+1@
+0C
+0#
+b10100 (
+b10100 /
+b10100 2
+b10100 O
+b10100 l
+b10100 +"
+b1 '
+b1 .
+#25000
+b10100 Q
+b10100 !
+b10100 -
+1a
+1[
+1#
+#30000
+1t
+1w
+1z
+1}
+1m
+0P
+b100 0
+0W
+0]
+0#
+b11110 (
+b11110 /
+b11110 2
+b11110 O
+b11110 l
+b11110 +"
+b10 '
+b10 .
+#35000
+b11110 n
+1u
+1x
+1{
+1~
+1#
+#40000
+19"
+1?"
+1,"
+0m
+b1000 0
+1t
+1w
+1}
+0""
+0#
+b101000 (
+b101000 /
+b101000 2
+b101000 O
+b101000 l
+b101000 +"
+b11 '
+b11 .
+#45000
+b101000 -"
+1@"
+1:"
+1#
+#50000
+0,"
+00"
+03"
+19"
+0B"
+b0 0
+0#
+b1100011 (
+b1100011 /
+b1100011 2
+b1100011 O
+b1100011 l
+b1100011 +"
+0)
+#55000
+1#
+#60000
+0#
+#65000
+1#
+#70000
+b101000 !
+b101000 -
+b11110 "
+b11110 ,
+0#
+b11 %
+b11 +
+b10 $
+b10 *
+#75000
+1#
+#80000
+1T
+1]
+0`
+1f
+1P
+00"
+06"
+1?"
+0B"
+0,"
+b10 0
+0#
+b1001101 (
+b1001101 /
+b1001101 2
+b1001101 O
+b1001101 l
+b1001101 +"
+b1 '
+b1 .
+1)
+#85000
+b1001101 Q
+1g
+0a
+1^
+1U
+1#
+#90000
+0P
+b0 0
+b1001101 !
+b1001101 -
+b1010 "
+b1010 ,
+0#
+b1 %
+b1 +
+b0 $
+b0 *
+0)
+#95000
+1#
+#100000
+0?"
+09"
+0}
+0z
+0w
+0t
+0f
+0]
+0Z
+0T
+0@
+0:
+b0 -"
+b0 n
+b0 Q
+b0 !
+b0 -
+b0 4
+b0 "
+b0 ,
+0@"
+0:"
+0~
+0{
+0x
+0u
+0g
+0^
+0[
+0U
+0A
+0;
+0#
+1&
+#105000
+1#
+#110000
+0#
+b10 %
+b10 +
+b1 $
+b1 *
+0&
+#115000
+1#
+#120000
+0#
+#125000
+1#
+#130000
+0#
+#135000
+1#
+#140000
+0#

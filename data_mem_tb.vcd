@@ -1,0 +1,96 @@
+$date
+	Sun Sep 20 18:42:40 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module data_mem_tb $end
+$var wire 8 ! rdata [7:0] $end
+$var reg 8 " addr [7:0] $end
+$var reg 1 # clk $end
+$var reg 8 $ wdata [7:0] $end
+$var reg 1 % we $end
+$scope module uut $end
+$var wire 8 & addr [7:0] $end
+$var wire 1 # clk $end
+$var wire 8 ' rdata [7:0] $end
+$var wire 8 ( wdata [7:0] $end
+$var wire 1 % we $end
+$var integer 32 ) i [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b100000000 )
+b0 (
+b0 '
+b110010 &
+0%
+b0 $
+0#
+b110010 "
+b0 !
+$end
+#5000
+1#
+#10000
+0#
+b1011000 $
+b1011000 (
+1%
+#15000
+b1011000 !
+b1011000 '
+1#
+#20000
+0#
+0%
+#25000
+1#
+#30000
+b0 !
+b0 '
+0#
+b11001000 $
+b11001000 (
+b110011 "
+b110011 &
+1%
+#35000
+b11001000 !
+b11001000 '
+1#
+#40000
+b1011000 !
+b1011000 '
+0#
+b110010 "
+b110010 &
+0%
+#45000
+1#
+#50000
+b11001000 !
+b11001000 '
+0#
+b110011 "
+b110011 &
+#55000
+1#
+#60000
+0#
+#65000
+1#
+#70000
+0#
+#75000
+1#
+#80000
+0#
