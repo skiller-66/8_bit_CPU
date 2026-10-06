@@ -1,14 +1,32 @@
 module cpu_top (
-    input wire clk,
-    input wire reset
+    input  wire       clk,
+    input  wire       reset,
+
+    // ---- Observable outputs: keep the datapath alive through synthesis ----
+    output wire       halted_out,
+    output wire [7:0] pc_out,
+    output wire [7:0] instr_word_out,
+
+    output wire [7:0] alu_result_out,
+    output wire       alu_zero_out,
+    output wire       alu_carry_out,
+    output wire       alu_overflow_out,
+    output wire       alu_negative_out,
+
+    output wire [1:0] reg_waddr_out,
+    output wire [7:0] reg_wdata_out,
+    output wire       reg_we_out,
+
+    output wire [7:0] dmem_addr_out,
+    output wire [7:0] dmem_wdata_out,
+    output wire [7:0] dmem_rdata_out,
+    output wire       dmem_we_out,
+
+    output wire       pc_en_out,
+    output wire       pc_load_out
 );
 
 // ---- Wires connecting everything together ----
-// Notice: this module doesn't COMPUTE anything itself. Every wire below
-// just carries a signal from one module's output straight into another
-// module's input, exactly matching the port names we designed in the
-// control unit.
-
 wire [7:0] pc_count;
 wire [7:0] instr_word;
 
@@ -39,8 +57,6 @@ pc u_pc (
 );
 
 // ---- Instruction Memory ----
-// Always addressed directly by the PC's current value -- this connection
-// alone is what makes "fetch" mean anything at all.
 instr_mem u_imem (
     .addr  (pc_count),
     .instr (instr_word)
@@ -60,10 +76,6 @@ register_file u_regfile (
 );
 
 // ---- ALU ----
-// Always fed whatever the register file is currently outputting -- the
-// control unit decides, via reg_we/dmem_we/pc_en, whether this cycle's
-// ALU result actually MATTERS, but the ALU itself just computes,
-// unconditionally, every cycle, same as it always has.
 alu u_alu (
     .a        (rdata1),
     .b        (rdata2),
@@ -85,8 +97,6 @@ data_mem u_dmem (
 );
 
 // ---- Control Unit ----
-// The brain: takes live values from everything above, and decides what
-// every OTHER module should do this cycle.
 control_unit u_ctrl (
     .clk          (clk),
     .reset        (reset),
@@ -113,5 +123,28 @@ control_unit u_ctrl (
     .pc_load_val  (pc_load_val),
     .halted       (halted)
 );
+
+// ---- Drive the top-level outputs ----
+assign halted_out       = halted;
+assign pc_out           = pc_count;
+assign instr_word_out   = instr_word;
+
+assign alu_result_out   = alu_result;
+assign alu_zero_out     = alu_zero;
+assign alu_carry_out    = alu_carry;
+assign alu_overflow_out = alu_overflow;
+assign alu_negative_out = alu_negative;
+
+assign reg_waddr_out    = reg_waddr;
+assign reg_wdata_out    = reg_wdata;
+assign reg_we_out       = reg_we;
+
+assign dmem_addr_out    = dmem_addr;
+assign dmem_wdata_out   = dmem_wdata;
+assign dmem_rdata_out   = dmem_rdata;
+assign dmem_we_out      = dmem_we;
+
+assign pc_en_out        = pc_en;
+assign pc_load_out      = pc_load;
 
 endmodule

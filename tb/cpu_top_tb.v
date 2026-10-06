@@ -1,109 +1,111 @@
 `timescale 1ns/1ps
 
+// Self-checking testbench for cpu_top (v1 close-out).
+// - Runs the program already loaded in instr_mem until the CPU halts.
+// - Logs every register-file and data-memory write.
+// - Compares register writes, in order, against the expected list below.
+//   Fill in exp_waddr/exp_wdata and N_EXP from your test program.
 module cpu_top_tb;
 
-reg clk;
-reg reset;
+    localparam integer MAX_CYCLES = 2000;   // timeout guard
+    localparam integer N_EXP      = 0;      // number of expected register writes (fill in)
 
-cpu_top uut (
-    .clk   (clk),
-    .reset (reset)
-);
+    reg clk   = 1'b0;
+    reg reset = 1'b1;                       // assumes active-high reset
 
-always #5 clk = ~clk;
+    wire       halted_out;
+    wire [7:0] pc_out;
+    wire [7:0] instr_word_out;
+    wire [7:0] alu_result_out;
+    wire       alu_zero_out, alu_carry_out, alu_overflow_out, alu_negative_out;
+    wire [1:0] reg_waddr_out;
+    wire [7:0] reg_wdata_out;
+    wire       reg_we_out;
+    wire [7:0] dmem_addr_out, dmem_wdata_out, dmem_rdata_out;
+    wire       dmem_we_out;
+    wire       pc_en_out, pc_load_out;
 
-reg [7:0] seed [0:3];
+    cpu_top dut (
+        .clk              (clk),
+        .reset            (reset),
+        .halted_out       (halted_out),
+        .pc_out           (pc_out),
+        .instr_word_out   (instr_word_out),
+        .alu_result_out   (alu_result_out),
+        .alu_zero_out     (alu_zero_out),
+        .alu_carry_out    (alu_carry_out),
+        .alu_overflow_out (alu_overflow_out),
+        .alu_negative_out (alu_negative_out),
+        .reg_waddr_out    (reg_waddr_out),
+        .reg_wdata_out    (reg_wdata_out),
+        .reg_we_out       (reg_we_out),
+        .dmem_addr_out    (dmem_addr_out),
+        .dmem_wdata_out   (dmem_wdata_out),
+        .dmem_rdata_out   (dmem_rdata_out),
+        .dmem_we_out      (dmem_we_out),
+        .pc_en_out        (pc_en_out),
+        .pc_load_out      (pc_load_out)
+    );
 
-initial begin
-    seed[0] = 8'd77;  // R0 -- the value we'll store into memory
-    seed[1] = 8'd0;   // R1 -- starts empty, LOAD should fill this with 77
-    seed[2] = 8'd0;   // R2 -- unused this program
-    seed[3] = 8'd80;  // R3 -- the memory address pointer, used by both STORE and LOAD
-    clk   = 0;
-    reset = 1;
+    // 100 MHz clock
+    always #5 clk = ~clk;
 
-    $dumpfile("cpu_top_tb.vcd");
-    $dumpvars(0, cpu_top_tb);
+    // ---- Expected register writes (in order) ----
+    reg [1:0] exp_waddr [0:63];
+    reg [7:0] exp_wdata [0:63];
 
-    #10 reset = 0;
+    initial begin
+        // Example (replace with your program's real results):
+        // exp_waddr[0] = 2'd0; exp_wdata[0] = 8'h05;
+        // exp_waddr[1] = 2'd1; exp_wdata[1] = 8'h03;
+    end
 
-    force uut.u_regfile.regs[0].r.bit[0].u_dff.q = seed[0][0];
-    force uut.u_regfile.regs[0].r.bit[1].u_dff.q = seed[0][1];
-    force uut.u_regfile.regs[0].r.bit[2].u_dff.q = seed[0][2];
-    force uut.u_regfile.regs[0].r.bit[3].u_dff.q = seed[0][3];
-    force uut.u_regfile.regs[0].r.bit[4].u_dff.q = seed[0][4];
-    force uut.u_regfile.regs[0].r.bit[5].u_dff.q = seed[0][5];
-    force uut.u_regfile.regs[0].r.bit[6].u_dff.q = seed[0][6];
-    force uut.u_regfile.regs[0].r.bit[7].u_dff.q = seed[0][7];
+    integer wr_idx  = 0;
+    integer errors  = 0;
+    integer cycles  = 0;
 
-    force uut.u_regfile.regs[1].r.bit[0].u_dff.q = seed[1][0];
-    force uut.u_regfile.regs[1].r.bit[1].u_dff.q = seed[1][1];
-    force uut.u_regfile.regs[1].r.bit[2].u_dff.q = seed[1][2];
-    force uut.u_regfile.regs[1].r.bit[3].u_dff.q = seed[1][3];
-    force uut.u_regfile.regs[1].r.bit[4].u_dff.q = seed[1][4];
-    force uut.u_regfile.regs[1].r.bit[5].u_dff.q = seed[1][5];
-    force uut.u_regfile.regs[1].r.bit[6].u_dff.q = seed[1][6];
-    force uut.u_regfile.regs[1].r.bit[7].u_dff.q = seed[1][7];
+    // Sampled at posedge: sees the values being written on this edge.
+    always @(posedge clk) begin
+        if (!reset && reg_we_out) begin
+            $display("[%0t] REG  write r%0d <= 0x%02h  (pc=0x%02h)",
+                     $time, reg_waddr_out, reg_wdata_out, pc_out);
+            if (wr_idx < N_EXP) begin
+                if (reg_waddr_out !== exp_waddr[wr_idx] ||
+                    reg_wdata_out !== exp_wdata[wr_idx]) begin
+                    errors = errors + 1;
+                    $display("   MISMATCH #%0d: expected r%0d <= 0x%02h",
+                             wr_idx, exp_waddr[wr_idx], exp_wdata[wr_idx]);
+                end
+            end
+            wr_idx = wr_idx + 1;
+        end
+        if (!reset && dmem_we_out)
+            $display("[%0t] DMEM write [0x%02h] <= 0x%02h", $time, dmem_addr_out, dmem_wdata_out);
+    end
 
-    force uut.u_regfile.regs[2].r.bit[0].u_dff.q = seed[2][0];
-    force uut.u_regfile.regs[2].r.bit[1].u_dff.q = seed[2][1];
-    force uut.u_regfile.regs[2].r.bit[2].u_dff.q = seed[2][2];
-    force uut.u_regfile.regs[2].r.bit[3].u_dff.q = seed[2][3];
-    force uut.u_regfile.regs[2].r.bit[4].u_dff.q = seed[2][4];
-    force uut.u_regfile.regs[2].r.bit[5].u_dff.q = seed[2][5];
-    force uut.u_regfile.regs[2].r.bit[6].u_dff.q = seed[2][6];
-    force uut.u_regfile.regs[2].r.bit[7].u_dff.q = seed[2][7];
+    initial begin
+        repeat (4) @(posedge clk);
+        #1 reset = 1'b0;
 
-    force uut.u_regfile.regs[3].r.bit[0].u_dff.q = seed[3][0];
-    force uut.u_regfile.regs[3].r.bit[1].u_dff.q = seed[3][1];
-    force uut.u_regfile.regs[3].r.bit[2].u_dff.q = seed[3][2];
-    force uut.u_regfile.regs[3].r.bit[3].u_dff.q = seed[3][3];
-    force uut.u_regfile.regs[3].r.bit[4].u_dff.q = seed[3][4];
-    force uut.u_regfile.regs[3].r.bit[5].u_dff.q = seed[3][5];
-    force uut.u_regfile.regs[3].r.bit[6].u_dff.q = seed[3][6];
-    force uut.u_regfile.regs[3].r.bit[7].u_dff.q = seed[3][7];
+        while (halted_out !== 1'b1 && cycles < MAX_CYCLES) begin
+            @(posedge clk);
+            cycles = cycles + 1;
+        end
+        repeat (2) @(posedge clk);
 
-    #1;
+        $display("----------------------------------------");
+        $display("cycles=%0d  reg writes seen=%0d  final pc=0x%02h", cycles, wr_idx, pc_out);
 
-    release uut.u_regfile.regs[0].r.bit[0].u_dff.q;
-    release uut.u_regfile.regs[0].r.bit[1].u_dff.q;
-    release uut.u_regfile.regs[0].r.bit[2].u_dff.q;
-    release uut.u_regfile.regs[0].r.bit[3].u_dff.q;
-    release uut.u_regfile.regs[0].r.bit[4].u_dff.q;
-    release uut.u_regfile.regs[0].r.bit[5].u_dff.q;
-    release uut.u_regfile.regs[0].r.bit[6].u_dff.q;
-    release uut.u_regfile.regs[0].r.bit[7].u_dff.q;
-
-    release uut.u_regfile.regs[1].r.bit[0].u_dff.q;
-    release uut.u_regfile.regs[1].r.bit[1].u_dff.q;
-    release uut.u_regfile.regs[1].r.bit[2].u_dff.q;
-    release uut.u_regfile.regs[1].r.bit[3].u_dff.q;
-    release uut.u_regfile.regs[1].r.bit[4].u_dff.q;
-    release uut.u_regfile.regs[1].r.bit[5].u_dff.q;
-    release uut.u_regfile.regs[1].r.bit[6].u_dff.q;
-    release uut.u_regfile.regs[1].r.bit[7].u_dff.q;
-
-    release uut.u_regfile.regs[2].r.bit[0].u_dff.q;
-    release uut.u_regfile.regs[2].r.bit[1].u_dff.q;
-    release uut.u_regfile.regs[2].r.bit[2].u_dff.q;
-    release uut.u_regfile.regs[2].r.bit[3].u_dff.q;
-    release uut.u_regfile.regs[2].r.bit[4].u_dff.q;
-    release uut.u_regfile.regs[2].r.bit[5].u_dff.q;
-    release uut.u_regfile.regs[2].r.bit[6].u_dff.q;
-    release uut.u_regfile.regs[2].r.bit[7].u_dff.q;
-
-    release uut.u_regfile.regs[3].r.bit[0].u_dff.q;
-    release uut.u_regfile.regs[3].r.bit[1].u_dff.q;
-    release uut.u_regfile.regs[3].r.bit[2].u_dff.q;
-    release uut.u_regfile.regs[3].r.bit[3].u_dff.q;
-    release uut.u_regfile.regs[3].r.bit[4].u_dff.q;
-    release uut.u_regfile.regs[3].r.bit[5].u_dff.q;
-    release uut.u_regfile.regs[3].r.bit[6].u_dff.q;
-    release uut.u_regfile.regs[3].r.bit[7].u_dff.q;
-
-    #400;
-
-    $finish;
-end
+        if (halted_out !== 1'b1) begin
+            $display("FAIL: timeout, CPU never halted");
+        end else if (errors != 0 || wr_idx < N_EXP) begin
+            $display("FAIL: %0d mismatches, %0d of %0d expected writes seen", errors, wr_idx, N_EXP);
+        end else if (N_EXP == 0) begin
+            $display("DONE: CPU halted, but no expected values set (nothing was checked)");
+        end else begin
+            $display("PASS");
+        end
+        $finish;
+    end
 
 endmodule
